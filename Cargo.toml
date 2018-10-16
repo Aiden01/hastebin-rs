@@ -3,6 +3,11 @@ name = "hastebin"
 version = "0.1.0"
 authors = ["Elian Gutierrez <eliangu3600103@gmail.com>"]
 edition = "2018"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/WebD01/hastebin-rs"
+homepage = "https://github.com/WebD01/hastebin-rs"
+description = "Upload file to hastebin using the command line"
 
 [dependencies]
 clap = "2.32.0"
