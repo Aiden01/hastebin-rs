@@ -30,6 +30,7 @@ fn main() {
     // Get the arguments
     let args: ArgMatches = build_cli().get_matches();
     if let Some(file_name) = args.value_of("FILE") {
+       println!("Uploading file...");
        hastebin::upload_buffer(file_name, args.value_of("CHARS"));
     } 
 }
