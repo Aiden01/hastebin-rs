@@ -1,6 +1,11 @@
 # Hastebin-rs
 Upload file to hastebin using the command line
 
+## Installing
+```
+cargo install hastebin
+```
+
 ## Usage
 ```
 hastebin 1.0.0
