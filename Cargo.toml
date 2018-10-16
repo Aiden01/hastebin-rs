@@ -1,0 +1,9 @@
+[package]
+name = "hastebin"
+version = "0.1.0"
+authors = ["Elian Gutierrez <eliangu3600103@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+clap = "2.32.0"
+http = "0.1.13"
