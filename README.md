@@ -1,6 +1,8 @@
 # Hastebin-rs
 Upload file to hastebin using the command line
 
+[![asciicast](https://asciinema.org/a/KTMTvD4MDhyiuqT0gkbWulkyP.png)](https://asciinema.org/a/KTMTvD4MDhyiuqT0gkbWulkyP)
+
 ## Installing
 ```
 cargo install hastebin
