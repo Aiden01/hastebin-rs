@@ -1,39 +1,36 @@
-extern crate reqwest;
 extern crate json;
+extern crate reqwest;
 mod file;
 use self::file::HastebinFile;
+use reqwest::Client;
 use std::fs;
 use std::io::Read;
-use reqwest::Client;
-
 
 /**
  * Upload the buffer to hastebin
  */
-pub fn upload_buffer(file_name: &str, max_chars: Option<&str>) {
-    // Checking for any errors while reading the file
-    match read_file(file_name) {
-        Ok(hastebin_file) => {
-            // Checking if the file is too big
-            if hastebin_file.is_too_big() {
-                println!("Error: File is too big, 50MB max.");
-                std::process::exit(0);
-            } else {
-                // upload the file to hastebin
-                let client = Client::new();
-                let mut response = client.post("https://hastebin.com/documents")
-                    .body(hastebin_file.get_buffer())
-                    .send()
-                    .expect("Cannot send the response");
-                // parse the response body
-                match json::parse(&response.text().unwrap()) {
-                    Ok(res_json) => println!("File uploaded successfully: https://hastebin.com/{}", res_json["key"].to_string()),
-                    Err(e) => println!("Failed to parse the body: {}", e)
-                }
-                
-            }
-        },
-        Err(e) => println!("An error occurred while reading the file: {}", e)
+pub fn upload_buffer<'a>(
+    file_name: &'a str,
+    max_chars: Option<&'a str>,
+) -> std::io::Result<String> {
+    let hastebin_file = read_file(file_name)?;
+
+    if hastebin_file.is_too_big() {
+        println!("Error: File is too big, 50MB max.");
+        std::process::exit(0);
+    } else {
+        // upload the file to hastebin
+        let client = Client::new();
+        let mut response = client
+            .post("https://hastebin.com/documents")
+            .body(hastebin_file.get_buffer())
+            .send()
+            .expect("Cannot send the response");
+
+        // parse the response body
+        let res_json = json::parse(&response.text().unwrap()).unwrap();
+        let url = format!("https://hastebin.com/{}", res_json["key"].to_string());
+        Ok(url)
     }
 }
 
