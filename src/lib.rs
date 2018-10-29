@@ -46,3 +46,10 @@ fn read_file(path: &str) -> std::io::Result<HastebinFile> {
     // return HastebinFile object with the informations of the file
     Ok(HastebinFile::new(buffer, String::from(path)))
 }
+
+pub enum Os {
+    Window,
+    Linux,
+    Macos,
+    Unknow,
+}
